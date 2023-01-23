@@ -8,6 +8,12 @@
 import Foundation
 
 struct Pokemon: Decodable {
+    var id: Int
     var name: String
-    var url: String
+    var sprites: Sprites
+}
+
+struct Sprites: Decodable {
+    var front_default: String
+    var back_default: String
 }
