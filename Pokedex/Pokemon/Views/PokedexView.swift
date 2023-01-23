@@ -9,27 +9,32 @@ import SwiftUI
 
 struct PokedexView: View {
     @StateObject var viewModel = PokedexViewModel()
-    
-    var columns: [GridItem] = [
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-        ]
-
-    let height: CGFloat = 150
+    @State var searchText = ""
 
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(viewModel.pokemonList.results) { pokemon in
-                    PokemonCardView(title: pokemon.name)
-                        .frame(height: height)
+        NavigationView {
+            List {
+                ForEach(searchText == "" ? viewModel.pokemonList.results : viewModel.pokemonList.results.filter( {$0.name.contains(searchText.lowercased())} )) { entry in
+                    
+                    HStack {
+                        PokemonImage(imageLink: "\(entry.url)")
+                            .padding(.trailing, 20)
+                        NavigationLink("\(entry.name)".capitalized,
+                                       destination: Text("Detail view for \(entry.name)"))
+                    }
                 }
             }
+            .onAppear {
+                viewModel.fetchPokemonList()
+            }
+            .searchable(text: $searchText)
+            .navigationTitle("PokedexUI")
         }
-        .onAppear {
-            viewModel.fetchPokemonList()
-        }
-        .padding()
+    }
+}
+
+struct PokemondexView_Previews: PreviewProvider {
+    static var previews: some View {
+        PokedexView()
     }
 }
