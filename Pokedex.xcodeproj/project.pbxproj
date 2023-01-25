@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6C81EA6A297F20A800DEAE5B /* PokemonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C81EA69297F20A800DEAE5B /* PokemonImage.swift */; };
+		6C81EA7029818D8900DEAE5B /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 6C81EA6F29818D8900DEAE5B /* Nuke */; };
+		6C81EA7229818D8900DEAE5B /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 6C81EA7129818D8900DEAE5B /* NukeExtensions */; };
+		6C81EA7429818D8900DEAE5B /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6C81EA7329818D8900DEAE5B /* NukeUI */; };
 		6CA3DD9E29787C650036DCF1 /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3DD9D29787C650036DCF1 /* PokedexApp.swift */; };
 		6CA3DDA029787C650036DCF1 /* PokedexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3DD9F29787C650036DCF1 /* PokedexView.swift */; };
 		6CA3DDA229787C670036DCF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3DDA129787C670036DCF1 /* Assets.xcassets */; };
@@ -39,6 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C81EA7429818D8900DEAE5B /* NukeUI in Frameworks */,
+				6C81EA7029818D8900DEAE5B /* Nuke in Frameworks */,
+				6C81EA7229818D8900DEAE5B /* NukeExtensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +141,11 @@
 			dependencies = (
 			);
 			name = Pokedex;
+			packageProductDependencies = (
+				6C81EA6F29818D8900DEAE5B /* Nuke */,
+				6C81EA7129818D8900DEAE5B /* NukeExtensions */,
+				6C81EA7329818D8900DEAE5B /* NukeUI */,
+			);
 			productName = Pokedex;
 			productReference = 6CA3DD9A29787C650036DCF1 /* Pokedex.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +174,9 @@
 				Base,
 			);
 			mainGroup = 6CA3DD9129787C640036DCF1;
+			packageReferences = (
+				6C81EA6E29818D8900DEAE5B /* XCRemoteSwiftPackageReference "Nuke" */,
+			);
 			productRefGroup = 6CA3DD9B29787C650036DCF1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -328,7 +342,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pokedex/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -357,7 +370,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pokedex/Info.plist;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -397,6 +409,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6C81EA6E29818D8900DEAE5B /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = exactVersion;
+				version = 11.5.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6C81EA6F29818D8900DEAE5B /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C81EA6E29818D8900DEAE5B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		6C81EA7129818D8900DEAE5B /* NukeExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C81EA6E29818D8900DEAE5B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeExtensions;
+		};
+		6C81EA7329818D8900DEAE5B /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C81EA6E29818D8900DEAE5B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6CA3DD9229787C640036DCF1 /* Project object */;
 }

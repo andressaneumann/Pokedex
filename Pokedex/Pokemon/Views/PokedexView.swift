@@ -16,9 +16,11 @@ struct PokedexView: View {
             List {
                 ForEach(searchText == "" ? viewModel.pokemonList.results : viewModel.pokemonList.results.filter( {$0.name.contains(searchText.lowercased())} )) { entry in
                     
+                    PokemonImage(imageLink: "\(entry.url)")
+                        .padding(.trailing, 20)
+                    
                     HStack {
-                        PokemonImage(imageLink: "\(entry.url)")
-                            .padding(.trailing, 20)
+                        
                         NavigationLink("\(entry.name)".capitalized,
                                        destination: Text("Detail view for \(entry.name)"))
                     }

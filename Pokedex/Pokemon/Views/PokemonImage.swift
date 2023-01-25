@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct PokemonImage: View {
     @StateObject var viewModel = ViewModel()
@@ -13,20 +14,27 @@ struct PokemonImage: View {
     @State private var pokemonSprite = ""
     
     var body: some View {
-        AsyncImage(url: URL(string: pokemonSprite))
-            .frame(width: 75, height: 75)
-            .onAppear {
-                let loadedData = UserDefaults.standard.string(forKey: imageLink)
-                
-                if loadedData == nil {
-                    getSprite(url: imageLink)
-                    UserDefaults.standard.set(imageLink, forKey: imageLink)
-                } else {
-                    getSprite(url: loadedData!)
-                }
-            }
+        LazyImage(source: pokemonSprite, resizingMode: .aspectFill)
+            .frame(width: 75,height: 75)
             .clipShape(Circle())
-            .foregroundColor(Color.gray.opacity(0.6))
+            .onAppear {
+                self.getSprite(url: imageLink)
+            }
+        
+//        AsyncImage(url: URL(string: pokemonSprite))
+//            .frame(width: 75, height: 75)
+//            .onAppear {
+//                let loadedData = UserDefaults.standard.string(forKey: imageLink)
+//
+//                if loadedData == nil {
+//                    getSprite(url: imageLink)
+//                    UserDefaults.standard.set(imageLink, forKey: imageLink)
+//                } else {
+//                    getSprite(url: loadedData!)
+//                }
+//            }
+//            .clipShape(Circle())
+//            .foregroundColor(Color.gray.opacity(0.6))
     }
     
     func getSprite(url: String) {
