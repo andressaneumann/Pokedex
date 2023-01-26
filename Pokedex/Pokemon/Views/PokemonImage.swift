@@ -9,7 +9,7 @@ import SwiftUI
 import NukeUI
 
 struct PokemonImage: View {
-    @StateObject var viewModel = ViewModel()
+    @ObservedObject var viewModel = ViewModel()
     var imageLink = ""
     @State private var pokemonSprite = ""
     
@@ -39,17 +39,17 @@ struct PokemonImage: View {
     
     func getSprite(url: String) {
         var tempSprite: String?
-        viewModel.fetchPokemonDetails(url: url)
-        tempSprite = viewModel.pokemonDetails.sprites.front_default
-        self.pokemonSprite = tempSprite ?? "placeholder"
+        viewModel.fetchPokemonDetails(url: url) { sprite in
+            tempSprite = sprite.front_default
+            self.pokemonSprite = tempSprite ?? "placeholder"
+        }
     }
 }
 
 extension PokemonImage {
     class ViewModel: ObservableObject {
-        @Published var pokemonDetails = Pokemon(id: 1, name: "", sprites: Sprites(front_default: "", back_default: ""))
         
-        func fetchPokemonDetails(url: String) {
+        func fetchPokemonDetails(url: String, completion: @escaping (Sprites) -> ()) {
             guard let url = URL(string: url) else { return }
             
             URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
@@ -58,7 +58,8 @@ extension PokemonImage {
                         do {
                             let decoder = JSONDecoder()
                             let decodedData = try decoder.decode(Pokemon.self, from: data)
-                            self?.pokemonDetails = decodedData
+                            
+                            completion(decodedData.sprites)
                         } catch {
                             print("Something went wrong..." )
                         }
