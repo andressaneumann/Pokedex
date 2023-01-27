@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct Pokemon: Decodable {
+struct PokemonImage: Decodable {
     var id: Int
-    var name: String
     var sprites: Sprites
 }
+
 
 struct Sprites: Decodable {
     var front_default: String
     var back_default: String
 }
+
+

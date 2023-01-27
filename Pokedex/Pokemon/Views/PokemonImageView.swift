@@ -8,7 +8,7 @@
 import SwiftUI
 import NukeUI
 
-struct PokemonImage: View {
+struct PokemonImageView: View {
     @ObservedObject var viewModel = ViewModel()
     var imageLink = ""
     @State private var pokemonSprite = ""
@@ -24,27 +24,26 @@ struct PokemonImage: View {
     
     func getSprite(url: String) {
         var tempSprite: String?
-        viewModel.fetchPokemonDetails(url: url) { sprite in
-            tempSprite = sprite.front_default
+        viewModel.fetchPokemonImage(url: url) { pokemon in
+            tempSprite = pokemon.sprites.front_default
             self.pokemonSprite = tempSprite ?? "placeholder"
         }
     }
 }
 
-extension PokemonImage {
+extension PokemonImageView {
     class ViewModel: ObservableObject {
-        
-        func fetchPokemonDetails(url: String, completion: @escaping (Sprites) -> ()) {
+        func fetchPokemonImage(url: String, completion: @escaping (PokemonImage) -> ()) {
             guard let url = URL(string: url) else { return }
             
-            URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            URLSession.shared.dataTask(with: url) { data, _, error in
                 DispatchQueue.main.async {
                     if let data = data {
                         do {
                             let decoder = JSONDecoder()
-                            let decodedData = try decoder.decode(Pokemon.self, from: data)
+                            let decodedData = try decoder.decode(PokemonImage.self, from: data)
                             
-                            completion(decodedData.sprites)
+                            completion(decodedData)
                         } catch {
                             print("Something went wrong..." )
                         }
@@ -57,6 +56,6 @@ extension PokemonImage {
 
 struct PokemonImage_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonImage()
+        PokemonImageView()
     }
 }
