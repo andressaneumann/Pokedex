@@ -11,9 +11,7 @@ class PokedexViewModel: ObservableObject {
     @Published var pokemonList: PokemonList = PokemonList(results: [])
     
     func fetchPokemonList() {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon") else { return }
-        
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        URLSession.shared.dataTask(with: .pokemonEndpoint) { [weak self] data, _, error in
             DispatchQueue.main.async {
                 if let data = data {
                     do {
