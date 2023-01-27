@@ -25,7 +25,7 @@ struct PokedexView: View {
                         PokemonImageView(imageLink: "\(entry.url)")
                             .padding(.trailing, 20)
                         NavigationLink("\(entry.name)".capitalized,
-                                       destination: PokemonDetailView())
+                                       destination: PokemonDetailsView(url: entry.url))
                     }
                 }
             }

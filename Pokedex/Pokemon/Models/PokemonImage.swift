@@ -12,10 +12,7 @@ struct PokemonImage: Decodable {
     var sprites: Sprites
 }
 
-
 struct Sprites: Decodable {
     var front_default: String
     var back_default: String
 }
-
-
