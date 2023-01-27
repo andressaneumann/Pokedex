@@ -11,20 +11,30 @@ import SwiftUI
 struct PokemonDetailsView: View {
     @StateObject var viewModel = ViewModel()
     var url = ""
-    
+
     var body: some View {
-        Text("Pokemon Details here")
-            .onAppear {
-                viewModel.fetchPokemonDetails(url: url) { pokemonDetails in
-                    print(pokemonDetails)
-                }
+        
+        VStack {
+            Text("\(viewModel.pokeDetails.name)")
+            ForEach(viewModel.pokeDetails.abilities) { ability in
+                Text("\(ability.ability.name)")
             }
+        }
+        .onAppear {
+            viewModel.fetchPokemonDetails(url: url)
+        }
     }
 }
 
 extension PokemonDetailsView {
     class ViewModel: ObservableObject {
-        func fetchPokemonDetails(url: String, completion: @escaping (PokemonDetails) -> ()) {
+        @Published var pokeDetails = PokemonDetails(id: 1,
+                                                    name: "",
+                                                    abilities: [],
+                                                    types: [],
+                                                    stats: [])
+        
+        func fetchPokemonDetails(url: String) {
             guard let url = URL(string: url) else { return }
             
             URLSession.shared.dataTask(with: url) { data, _, error in
@@ -34,7 +44,7 @@ extension PokemonDetailsView {
                             let decoder = JSONDecoder()
                             let decodedData = try decoder.decode(PokemonDetails.self, from: data)
                             
-                            completion(decodedData)
+                            self.pokeDetails = decodedData
                         } catch {
                             print("Something went wrong..." )
                         }

@@ -15,7 +15,8 @@ struct PokemonDetails: Decodable {
     var stats: [Stats]
 }
 
-struct Abilities: Decodable {
+struct Abilities: Decodable, Identifiable {
+    let id = UUID()
     var ability: Ability
 }
 
