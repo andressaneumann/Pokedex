@@ -12,6 +12,7 @@ struct PokemonDetails: Decodable {
     var name: String
     var abilities: [Abilities]
     var types: [Types]
+    var stats: [Stats]
 }
 
 struct Abilities: Decodable {
@@ -30,4 +31,14 @@ struct Types: Decodable {
 struct `Type`: Decodable {
     var name: String
     var url: String
+}
+
+struct Stats: Decodable {
+    var base_stat: Int
+    var effort: Int
+    var stat: Stat
+}
+
+struct Stat: Decodable {
+    var name: String
 }

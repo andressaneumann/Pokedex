@@ -14,6 +14,11 @@ struct PokemonDetailsView: View {
     
     var body: some View {
         Text("Pokemon Details here")
+            .onAppear {
+                viewModel.fetchPokemonDetails(url: url) { pokemonDetails in
+                    print(pokemonDetails)
+                }
+            }
     }
 }
 
