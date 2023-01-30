@@ -16,23 +16,22 @@ struct PokedexView: View {
         GridItem(.flexible()),
     ]
     
-    var body: some View {        
+    let height: CGFloat = 120
+    
+    var body: some View {
         NavigationView {
-            List {
-                ForEach(searchText == "" ? viewModel.pokemonList.results : viewModel.pokemonList.results.filter( {$0.name.contains(searchText.lowercased())} )) { entry in
-
-                    HStack {
-                        PokemonImageView(imageLink: "\(entry.url)")
-                            .padding(.trailing, 20)
-                        NavigationLink("\(entry.name)".capitalized,
-                                       destination: PokemonDetailsView(url: entry.url))
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 8) {
+                    ForEach(viewModel.pokemonList.results) { pokemon in
+                        NavigationPokemonCard(pokemonName: pokemon.name, url: pokemon.url)
+                            .frame(height: height)
                     }
                 }
+                .padding()
             }
             .onAppear {
                 viewModel.fetchPokemonList()
             }
-            .searchable(text: $searchText)
             .navigationTitle("PokedexUI")
         }
     }

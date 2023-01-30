@@ -15,8 +15,7 @@ struct PokemonImageView: View {
     
     var body: some View {
         LazyImage(source: pokemonSprite, resizingMode: .aspectFill)
-            .frame(width: 75,height: 75)
-            .clipShape(Circle())
+            .frame(width: 80, height: 80)
             .onAppear {
                 self.getSprite(url: imageLink)
             }
